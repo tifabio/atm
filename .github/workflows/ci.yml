@@ -13,4 +13,4 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - uses: carlosabcs/lumen-phpunit-action@master
+    - uses: tifabio/lumen-phpunit-action@master
