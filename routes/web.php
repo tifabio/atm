@@ -1,7 +1,6 @@
 <?php
 
 use \Illuminate\Http\Request;
-use \App\Exceptions\GeneralException;
 use \App\Http\Controllers\UserController;
 
 $router->get('/', function () use ($router) {
@@ -12,21 +11,34 @@ $router->get('foo', function () use ($router) {
     return 'Hello World';
 });
 
-$router->get('/user/{id}', '\App\Http\Controllers\UserController@find');
+$router->get('/user/{id}', '\App\Http\Controllers\UserController@get');
 
 $router->delete('/user/{id}', '\App\Http\Controllers\UserController@delete');
 
 $router->put('/user/{id}', function ($id, Request $request) {
-    if (!$request->isJson()) {
-       throw new GeneralException(GeneralException::INVALID_DATA, 400);
-    }
-    return UserController::save($request->json()->all(), $id);
+    $this->validate($request, [
+        'nome' => 'required|string|min:3',
+        'cpf' => 'required|string|min:11',
+        'datanascimento' => 'required|date',
+    ]);
+    $user = UserController::save($request->all(), $id);
+    return response()->json($user);
 });
 
 $router->post('/user', function (Request $request) {
-    if (!$request->isJson()) {
-       throw new GeneralException(GeneralException::INVALID_DATA, 400);
-    }
+    $this->validate($request, [
+        'nome' => 'required|string|min:3',
+        'cpf' => 'required|string|min:11',
+        'datanascimento' => 'required|date',
+    ]);
+    $user = UserController::save($request->all());
+    return response()->json($user, 201);
+});
 
-    return UserController::save($request->json()->all());
+$router->get('/user', function (Request $request) {
+    $user = UserController::find([
+        'nome' => $request->input('nome'),
+        'cpf' => $request->input('cpf')
+    ]);
+    return response()->json($user);  
 });

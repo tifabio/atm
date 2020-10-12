@@ -7,13 +7,25 @@ use App\Services\UserService;
 
 class UserController extends Controller
 {
-    public function find($id)
+    public function get($id)
     {
-        $user = UserService::find($id);
+        $user = UserService::getById($id);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
         return $user->toJson();
+    }
+
+    public static function find($params)
+    {
+        if(!$params['nome'] && !$params['cpf']) {
+            throw new UserException(UserException::INVALID_QUERY_PARAMS, 400);
+        }
+        $user = UserService::find(array_filter($params));
+        if(!$user) {
+            throw new UserException(UserException::NOT_FOUND, 404);
+        }
+        return $user->toArray();
     }
 
     public static function save($data, $id = 0)
@@ -27,7 +39,7 @@ class UserController extends Controller
         if(!$user) {
             throw new UserException(UserException::SAVE_ERROR, 500);
         }
-        return $user->toJson();
+        return $user->toArray();
     }
 
     public function delete($id)

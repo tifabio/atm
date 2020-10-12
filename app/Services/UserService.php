@@ -6,8 +6,13 @@ use App\Models\User;
 
 class UserService
 {
-    public static function find($id) {
+    public static function getById($id) {
         $user = User::find($id);
+        return $user;
+    }
+
+    public static function find($params) {
+        $user = User::where($params)->first();
         return $user;
     }
 
