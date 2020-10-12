@@ -11,6 +11,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: atm
+          MYSQL_PASSWORD: atm@123
+          MYSQL_DATABASE: atm
+
     steps:
     - uses: actions/checkout@v1
     - uses: tifabio/lumen-phpunit-action@master
