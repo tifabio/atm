@@ -17,7 +17,7 @@ class UserService
     }
 
     public static function save($payload, $id = 0) {
-        $user = $id > 0 ? self::find($id) : new User();
+        $user = $id > 0 ? self::getById($id) : new User();
         $user->id = $id;
         $user->nome = $payload['nome'];
         $user->cpf = $payload['cpf'];

@@ -31,7 +31,7 @@ class UserController extends Controller
     public static function save($data, $id = 0)
     {
         if($id > 0) {
-            if(!UserService::find($id)) {
+            if(!UserService::getById($id)) {
                 throw new UserException(UserException::NOT_FOUND, 404);
             }
         }
@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        if(!UserService::find($id)) {
+        if(!UserService::getById($id)) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
         $user = UserService::delete($id);
