@@ -49,6 +49,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+        if ($exception instanceof CustomException) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status_code' => $exception->getCode()
+            ], $exception->getCode());
+        } else {
+            return parent::render($request, $exception);
+        }
     }
 }
