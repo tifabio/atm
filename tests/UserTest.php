@@ -27,5 +27,6 @@ class UserTest extends TestCase
                     'cpf' => '12345678916',
                     'datanascimento' => '1999-01-01'
                 ]);
+                
     }
 }
