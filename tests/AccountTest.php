@@ -5,6 +5,7 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 use App\Services\AccountService;
 use App\Services\AccountTypeService;
 use App\Services\UserService;
+use App\Exceptions\ATMException;
 
 class AccountTest extends TestCase
 {
@@ -79,6 +80,49 @@ class AccountTest extends TestCase
             ->seeStatusCode(422)
             ->seeJson([
                 'valor' => ['The valor must be an integer.']
+            ]);
+    }
+
+    public function testAccountWithdrawn()
+    {
+        $this->put('/account/withdrawn', [
+                'cpf' => '12345678920',
+                'tipo_conta' => 'CONTA_POUPANCA',
+                'valor' => 130
+            ])
+            ->seeStatusCode(200)
+            ->seeJson([
+                '100' => 0,
+                '50'  => 1,
+                '20'  => 4
+            ]);
+    }
+
+    public function testAccountWithdrawnWrongRequiredAmount()
+    {
+        $this->put('/account/withdrawn', [
+                'cpf' => '12345678920',
+                'tipo_conta' => 'CONTA_POUPANCA',
+                'valor' => 15
+            ])
+            ->seeStatusCode(422)
+            ->seeJson([
+                'message' => ATMException::WRONG_REQUIRED_AMOUNT,
+                'status_code' => 422
+            ]);
+    }
+
+    public function testAccountWithdrawnInsufficientFunds()
+    {
+        $this->put('/account/withdrawn', [
+                'cpf' => '12345678920',
+                'tipo_conta' => 'CONTA_POUPANCA',
+                'valor' => 350
+            ])
+            ->seeStatusCode(422)
+            ->seeJson([
+                'message' => ATMException::INSUFFICENT_FUNDS,
+                'status_code' => 422
             ]);
     }
 }

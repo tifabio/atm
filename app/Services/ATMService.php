@@ -15,10 +15,10 @@ class ATMService
 
     public function withdrawn($amount) {
         if($amount > $this->accountBalance) {
-            throw new ATMException(ATMException::INSUFFICENT_FUNDS);
+            throw new ATMException(ATMException::INSUFFICENT_FUNDS, 422);
         }
         if($amount < 20 || $amount == 30 || $amount % 10 != 0) {
-            throw new ATMException(ATMException::WRONG_REQUIRED_AMOUNT);
+            throw new ATMException(ATMException::WRONG_REQUIRED_AMOUNT, 422);
         }
 
         $this->currentAmount = $amount;

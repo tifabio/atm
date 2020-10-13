@@ -8,6 +8,7 @@ use App\Exceptions\AccountTypeException;
 use App\Services\AccountTypeService;
 use App\Exceptions\UserException;
 use App\Services\UserService;
+use App\Services\ATMService;
 
 
 class AccountController extends Controller
@@ -83,9 +84,12 @@ class AccountController extends Controller
             throw new AccountException(AccountException::NOT_FOUND, 404);
         }
 
+        $atm = new ATMService($account->saldo);
+        $money = $atm->withdrawn($data['valor']);
+        
         $account->saldo -= $data['valor'];
         $account->save();
 
-        return $account->toArray();
+        return $money;
     }
 }
