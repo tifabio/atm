@@ -2,6 +2,7 @@
 
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\AccountController;
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
@@ -41,4 +42,14 @@ $router->get('/user', function (Request $request) {
         'cpf' => $request->input('cpf')
     ]);
     return response()->json($user);  
+});
+
+$router->post('/account', function (Request $request) {
+    $this->validate($request, [
+        'cpf' => 'required|string|min:11',
+        'tipo_conta' => 'required|string',
+        'saldo' => 'required|integer',
+    ]);
+    $account = AccountController::save($request->all());
+    return response()->json($account, 201);
 });
