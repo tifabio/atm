@@ -47,10 +47,15 @@ class UserController extends Controller
         if(!UserService::getById($id)) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
-        $user = UserService::delete($id);
-        if(!$user) {
-            throw new UserException(UserException::SAVE_ERROR, 500);
+        try {
+            $user = UserService::delete($id);
+            if(!$user) {
+                throw new UserException(UserException::SAVE_ERROR, 500);
+            }
+        } catch (\Exception $e) {
+            throw new UserException($e->getMessage(), 500);
         }
+
         return $user;
     }
 }
