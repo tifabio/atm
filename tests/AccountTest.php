@@ -2,6 +2,8 @@
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use App\Services\AccountService;
+use App\Services\AccountTypeService;
 use App\Services\UserService;
 
 class AccountTest extends TestCase
@@ -31,5 +33,52 @@ class AccountTest extends TestCase
                 'saldo' => '200'
             ])
             ->seeStatusCode(422);
+    }
+
+    public function testAccountDeposit()
+    {
+        $user = UserService::find(['cpf' => '12345678920']);
+
+        $accountType = AccountTypeService::find(['tipo_conta' => 'CONTA_POUPANCA']);
+
+        $account = AccountService::find([
+            'id_usuario' => $user->id,
+            'id_tipo_conta' => $accountType->id
+        ]);
+
+        $this->put('/account/deposit', [
+                'cpf' => '12345678920',
+                'tipo_conta' => 'CONTA_POUPANCA',
+                'valor' => 50
+            ])
+            ->seeStatusCode(200)
+            ->seeJson([
+                'id' => $account->id,
+                'id_usuario' => $user->id,
+                'id_tipo_conta' => $accountType->id,
+                'saldo' => 250
+            ]);
+    }
+
+    public function testAccountDepositDecimalValue()
+    {
+        $user = UserService::find(['cpf' => '12345678920']);
+
+        $accountType = AccountTypeService::find(['tipo_conta' => 'CONTA_POUPANCA']);
+
+        $account = AccountService::find([
+            'id_usuario' => $user->id,
+            'id_tipo_conta' => $accountType->id
+        ]);
+
+        $this->put('/account/deposit', [
+                'cpf' => '12345678920',
+                'tipo_conta' => 'CONTA_POUPANCA',
+                'valor' => 40.39
+            ])
+            ->seeStatusCode(422)
+            ->seeJson([
+                'valor' => ['The valor must be an integer.']
+            ]);
     }
 }
