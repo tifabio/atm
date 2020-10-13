@@ -14,4 +14,9 @@ class AccountService
         $account->save();
         return $account;
     }
+
+    public static function find($params) {
+        $account = Account::where($params)->first();
+        return $account;
+    }
 }

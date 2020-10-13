@@ -53,3 +53,13 @@ $router->post('/account', function (Request $request) {
     $account = AccountController::save($request->all());
     return response()->json($account, 201);
 });
+
+$router->put('/account/deposit', function (Request $request) {
+    $this->validate($request, [
+        'cpf' => 'required|string|min:11',
+        'tipo_conta' => 'required|string',
+        'valor' => 'required|integer|gt:0',
+    ]);
+    $account = AccountController::deposit($request->all());
+    return response()->json($account, 200);
+});
