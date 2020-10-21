@@ -1,0 +1,10 @@
+- Saldo mudar pra unsigned
+- CPF unique
+- Pasta public como raiz
+- Status code 204 (no content) no delete
+- Padrão restful no plural
+- Toda validação (tirar do routes) e regra de negócio (tirar das controllers) no service
+- Services no padrão service container
+- Relacionamento entre as entidades (models)
+- Documentação dos endpoints no README
+- Testes locais no SQLite (ou dockerizar projeto)
