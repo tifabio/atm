@@ -9,12 +9,19 @@ use App\Services\AccountTypeService;
 use App\Exceptions\UserException;
 use App\Services\UserService;
 use App\Services\ATMService;
+use Illuminate\Http\Request;
 
 
 class AccountController extends Controller
 {
-    public static function save($data)
+    public function save(Request $request)
     {
+        $this->validate($request, [
+            'cpf' => 'required|string|min:11',
+            'tipo_conta' => 'required|string',
+            'saldo' => 'required|integer',
+        ]);
+        $data = $request->all();
         $user = UserService::find(['cpf' => $data['cpf']]);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
@@ -37,10 +44,17 @@ class AccountController extends Controller
         } catch (\Exception $e) {
             throw new AccountException($e->getMessage(), 500);
         }
-        return $account->toArray();
+        
+        return response()->json($account->toArray(), 201);
     }
 
-    public static function deposit($data) {
+    public function deposit(Request $request) {
+        $this->validate($request, [
+            'cpf' => 'required|string|min:11',
+            'tipo_conta' => 'required|string',
+            'valor' => 'required|integer|gt:0',
+        ]);
+        $data = $request->all();
         $user = UserService::find(['cpf' => $data['cpf']]);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
@@ -62,10 +76,16 @@ class AccountController extends Controller
         $account->saldo += $data['valor'];
         $account->save();
 
-        return $account->toArray();
+        return response()->json($account->toArray());
     }
 
-    public static function withdrawn($data) {
+    public function withdrawn(Request $request) {
+        $this->validate($request, [
+            'cpf' => 'required|string|min:11',
+            'tipo_conta' => 'required|string',
+            'valor' => 'required|integer|gt:0',
+        ]);
+        $data = $request->all();
         $user = UserService::find(['cpf' => $data['cpf']]);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
@@ -90,6 +110,6 @@ class AccountController extends Controller
         $account->saldo -= $data['valor'];
         $account->save();
 
-        return $money;
+        return response()->json($money);
     }
 }

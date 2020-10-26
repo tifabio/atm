@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\UserException;
 use App\Services\UserService;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -13,11 +14,16 @@ class UserController extends Controller
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
-        return $user->toJson();
+        
+        return response()->json($user->toArray());
     }
 
-    public static function find($params)
+    public function find(Request $request)
     {
+        $params = [
+            'nome' => $request->input('nome'),
+            'cpf' => $request->input('cpf')
+        ];
         if(!$params['nome'] && !$params['cpf']) {
             throw new UserException(UserException::INVALID_QUERY_PARAMS, 400);
         }
@@ -25,21 +31,32 @@ class UserController extends Controller
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
-        return $user->toArray();
+
+        return response()->json($user->toArray());
     }
 
-    public static function save($data, $id = 0)
+    public function save(Request $request, $id = 0)
     {
+        $this->validate($request, [
+            'nome' => 'required|string|min:3',
+            'cpf' => 'required|string|min:11',
+            'datanascimento' => 'required|date',
+        ]);
         if($id > 0) {
             if(!UserService::getById($id)) {
                 throw new UserException(UserException::NOT_FOUND, 404);
             }
         }
-        $user = UserService::save($data, $id);
-        if(!$user) {
-            throw new UserException(UserException::SAVE_ERROR, 500);
+        try {
+            $user = UserService::save($request->all(), $id);
+            if(!$user) {
+                throw new UserException(UserException::SAVE_ERROR, 500);
+            }
+        } catch (\Exception $e) {
+            throw new UserException($e->getMessage(), 500);
         }
-        return $user->toArray();
+
+        return response()->json($user->toArray(), $id > 0 ? 200 : 201);
     }
 
     public function delete($id)
@@ -56,6 +73,6 @@ class UserController extends Controller
             throw new UserException($e->getMessage(), 500);
         }
 
-        return $user;
+        return response(null, 204);
     }
 }

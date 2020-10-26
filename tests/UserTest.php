@@ -63,7 +63,7 @@ class UserTest extends TestCase
     {
         $user = UserService::find(['cpf' => '12345678911']);
         $this->delete('/users/' . $user->id)
-                ->seeStatusCode(200);
+                ->seeStatusCode(204);
     }
 
     public function testUserNotFound()
