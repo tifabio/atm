@@ -1,6 +1,5 @@
 - Pasta public como raiz
-- Status code 204 (no content) no delete
-- Toda validação (tirar do routes) e regra de negócio (tirar das controllers) no service
+- Regras de negócio (tirar das controllers) no service
 - Services no padrão service container
 - Relacionamento entre as entidades (models)
 - Documentação dos endpoints no README
