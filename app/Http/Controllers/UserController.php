@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\UserException;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -11,10 +10,6 @@ class UserController extends Controller
     public function get($id)
     {
         $user = UserService::getById($id);
-        if(!$user) {
-            throw new UserException(UserException::NOT_FOUND, 404);
-        }
-        
         return response()->json($user->toArray());
     }
 
@@ -24,14 +19,7 @@ class UserController extends Controller
             'nome' => $request->input('nome'),
             'cpf' => $request->input('cpf')
         ];
-        if(!$params['nome'] && !$params['cpf']) {
-            throw new UserException(UserException::INVALID_QUERY_PARAMS, 400);
-        }
-        $user = UserService::find(array_filter($params));
-        if(!$user) {
-            throw new UserException(UserException::NOT_FOUND, 404);
-        }
-
+        $user = UserService::find($params);
         return response()->json($user->toArray());
     }
 
@@ -42,37 +30,13 @@ class UserController extends Controller
             'cpf' => 'required|string|min:11',
             'datanascimento' => 'required|date',
         ]);
-        if($id > 0) {
-            if(!UserService::getById($id)) {
-                throw new UserException(UserException::NOT_FOUND, 404);
-            }
-        }
-        try {
-            $user = UserService::save($request->all(), $id);
-            if(!$user) {
-                throw new UserException(UserException::SAVE_ERROR, 500);
-            }
-        } catch (\Exception $e) {
-            throw new UserException($e->getMessage(), 500);
-        }
-
+        $user = UserService::save($request->all(), $id);
         return response()->json($user->toArray(), $id > 0 ? 200 : 201);
     }
 
     public function delete($id)
     {
-        if(!UserService::getById($id)) {
-            throw new UserException(UserException::NOT_FOUND, 404);
-        }
-        try {
-            $user = UserService::delete($id);
-            if(!$user) {
-                throw new UserException(UserException::SAVE_ERROR, 500);
-            }
-        } catch (\Exception $e) {
-            throw new UserException($e->getMessage(), 500);
-        }
-
+        UserService::delete($id);
         return response(null, 204);
     }
 }

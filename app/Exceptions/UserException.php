@@ -6,6 +6,7 @@ class UserException extends \Exception implements CustomException
 {
     const NOT_FOUND = 'User not found';
     const SAVE_ERROR = 'Error saving user';
+    const DELETE_ERROR = 'Error removing user';
     const INVALID_QUERY_PARAMS = 'Invalid query parameters';
 
     public function __construc($message, $code = 0) {
