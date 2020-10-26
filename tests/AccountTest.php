@@ -63,15 +63,6 @@ class AccountTest extends TestCase
 
     public function testAccountDepositDecimalValue()
     {
-        $user = UserService::find(['cpf' => '12345678920']);
-
-        $accountType = AccountTypeService::find(['tipo_conta' => 'CONTA_POUPANCA']);
-
-        $account = AccountService::find([
-            'id_usuario' => $user->id,
-            'id_tipo_conta' => $accountType->id
-        ]);
-
         $this->put('/accounts/deposit', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
