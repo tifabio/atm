@@ -12,11 +12,11 @@ $router->get('foo', function () use ($router) {
     return 'Hello World';
 });
 
-$router->get('/user/{id}', '\App\Http\Controllers\UserController@get');
+$router->get('/users/{id}', '\App\Http\Controllers\UserController@get');
 
-$router->delete('/user/{id}', '\App\Http\Controllers\UserController@delete');
+$router->delete('/users/{id}', '\App\Http\Controllers\UserController@delete');
 
-$router->put('/user/{id}', function ($id, Request $request) {
+$router->put('/users/{id}', function ($id, Request $request) {
     $this->validate($request, [
         'nome' => 'required|string|min:3',
         'cpf' => 'required|string|min:11',
@@ -26,7 +26,7 @@ $router->put('/user/{id}', function ($id, Request $request) {
     return response()->json($user);
 });
 
-$router->post('/user', function (Request $request) {
+$router->post('/users', function (Request $request) {
     $this->validate($request, [
         'nome' => 'required|string|min:3',
         'cpf' => 'required|string|min:11',
@@ -36,7 +36,7 @@ $router->post('/user', function (Request $request) {
     return response()->json($user, 201);
 });
 
-$router->get('/user', function (Request $request) {
+$router->get('/users', function (Request $request) {
     $user = UserController::find([
         'nome' => $request->input('nome'),
         'cpf' => $request->input('cpf')
@@ -44,7 +44,7 @@ $router->get('/user', function (Request $request) {
     return response()->json($user);  
 });
 
-$router->post('/account', function (Request $request) {
+$router->post('/accounts', function (Request $request) {
     $this->validate($request, [
         'cpf' => 'required|string|min:11',
         'tipo_conta' => 'required|string',
@@ -54,7 +54,7 @@ $router->post('/account', function (Request $request) {
     return response()->json($account, 201);
 });
 
-$router->put('/account/deposit', function (Request $request) {
+$router->put('/accounts/deposit', function (Request $request) {
     $this->validate($request, [
         'cpf' => 'required|string|min:11',
         'tipo_conta' => 'required|string',
@@ -64,7 +64,7 @@ $router->put('/account/deposit', function (Request $request) {
     return response()->json($account, 200);
 });
 
-$router->put('/account/withdrawn', function (Request $request) {
+$router->put('/accounts/withdrawn', function (Request $request) {
     $this->validate($request, [
         'cpf' => 'required|string|min:11',
         'tipo_conta' => 'required|string',

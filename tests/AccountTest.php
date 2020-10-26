@@ -11,14 +11,14 @@ class AccountTest extends TestCase
 {
     public function testCreateAccount()
     {
-        $this->post('/user', [
+        $this->post('/users', [
                 'nome' => 'José Silva',
                 'cpf' => '12345678920',
                 'datanascimento' => '1999-01-01'
             ])
             ->seeStatusCode(201);
 
-        $this->post('/account', [
+        $this->post('/accounts', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'saldo' => '200'
@@ -28,7 +28,7 @@ class AccountTest extends TestCase
 
     public function testCreateAccountInvalidAccountType()
     {
-        $this->post('/account', [
+        $this->post('/accounts', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_PAGAMENTO',
                 'saldo' => '200'
@@ -47,7 +47,7 @@ class AccountTest extends TestCase
             'id_tipo_conta' => $accountType->id
         ]);
 
-        $this->put('/account/deposit', [
+        $this->put('/accounts/deposit', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 50
@@ -72,7 +72,7 @@ class AccountTest extends TestCase
             'id_tipo_conta' => $accountType->id
         ]);
 
-        $this->put('/account/deposit', [
+        $this->put('/accounts/deposit', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 40.39
@@ -85,7 +85,7 @@ class AccountTest extends TestCase
 
     public function testAccountWithdrawn()
     {
-        $this->put('/account/withdrawn', [
+        $this->put('/accounts/withdrawn', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 130
@@ -100,7 +100,7 @@ class AccountTest extends TestCase
 
     public function testAccountWithdrawnWrongRequiredAmount()
     {
-        $this->put('/account/withdrawn', [
+        $this->put('/accounts/withdrawn', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 15
@@ -114,7 +114,7 @@ class AccountTest extends TestCase
 
     public function testAccountWithdrawnInsufficientFunds()
     {
-        $this->put('/account/withdrawn', [
+        $this->put('/accounts/withdrawn', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 350

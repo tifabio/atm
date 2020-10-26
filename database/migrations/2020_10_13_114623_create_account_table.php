@@ -17,7 +17,7 @@ class CreateAccountTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_usuario');
             $table->unsignedInteger('id_tipo_conta');
-            $table->integer('saldo');
+            $table->unsignedInteger('saldo');
             $table->datetime('created_at');
             $table->datetime('updated_at');
             $table->foreign('id_usuario')->references('id')->on('usuario');
