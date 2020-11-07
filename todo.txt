@@ -1,4 +1,3 @@
-- Pasta public como raiz
 - Services no padrão service container
 - Documentação dos endpoints no README
 - Testes locais no SQLite (ou dockerizar projeto)
