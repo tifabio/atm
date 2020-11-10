@@ -9,21 +9,28 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
+    private $accountService;
+
+    public function __construct(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+    }
+
     public function save(SaveRequest $request)
     {
-        $account = AccountService::save($request->getRequest());        
+        $account = $this->accountService->save($request->getRequest());        
         return response()->json($account->toArray(), 201);
     }
 
     public function deposit(BalanceRequest $request) 
     {
-        $account = AccountService::deposit($request->getRequest());        
+        $account = $this->accountService->deposit($request->getRequest());        
         return response()->json($account->toArray());
     }
 
     public function withdrawn(BalanceRequest $request) 
     {
-        $money = AccountService::withdrawn($request->getRequest());        
+        $money = $this->accountService->withdrawn($request->getRequest());        
         return response()->json($money);
     }
 }

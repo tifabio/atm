@@ -12,8 +12,15 @@ use App\Services\ATMService;
 
 class AccountService
 {
-    public static function save($data) {
-        $user = UserService::find(['cpf' => $data['cpf']]);
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    public function save($data) {
+        $user = $this->userService->find(['cpf' => $data['cpf']]);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
@@ -39,8 +46,8 @@ class AccountService
         }
     }
 
-    public static function deposit($data) {
-        $user = UserService::find(['cpf' => $data['cpf']]);
+    public function deposit($data) {
+        $user = $this->userService->find(['cpf' => $data['cpf']]);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
@@ -64,8 +71,8 @@ class AccountService
         return $account;
     }
 
-    public static function withdrawn($data) {
-        $user = UserService::find(['cpf' => $data['cpf']]);
+    public function withdrawn($data) {
+        $user = $this->userService->find(['cpf' => $data['cpf']]);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
         }
@@ -92,7 +99,7 @@ class AccountService
         return $money;
     }
 
-    public static function find($params) {
+    public function find($params) {
         $account = Account::where($params)->first();
         return $account;
     }
