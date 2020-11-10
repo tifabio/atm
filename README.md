@@ -1,4 +1,4 @@
-Linx ATM Simulator
+ATM Simulator
 
 Steps to run:
 
