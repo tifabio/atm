@@ -10,12 +10,14 @@ use App\Exceptions\ATMException;
 class AccountTest extends TestCase
 {
     private $accountService;
+    private $accountTypeService;
     private $userService;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->accountService = $this->app->make(AccountService::class);
+        $this->accountTypeService = $this->app->make(AccountTypeService::class);
         $this->userService = $this->app->make(UserService::class);
     }
 
@@ -50,7 +52,7 @@ class AccountTest extends TestCase
     {
         $user = $this->userService->find(['cpf' => '12345678920']);
 
-        $accountType = AccountTypeService::find(['tipo_conta' => 'CONTA_POUPANCA']);
+        $accountType = $this->accountTypeService->find(['tipo_conta' => 'CONTA_POUPANCA']);
 
         $account = $this->accountService->find([
             'id_usuario' => $user->id,

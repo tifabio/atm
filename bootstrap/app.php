@@ -93,6 +93,7 @@ $app->configure('app');
 
 $app->register(
     App\Providers\AccountServiceProvider::class,
+    App\Providers\AccountTypeServiceProvider::class,
     App\Providers\UserServiceProvider::class
 );
 //$app->register(App\Providers\AppServiceProvider::class);

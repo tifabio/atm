@@ -12,10 +12,12 @@ use App\Services\ATMService;
 
 class AccountService
 {
+    private $accountTypeService;
     private $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(AccountTypeService $accountTypeService, UserService $userService)
     {
+        $this->accountTypeService = $accountTypeService;
         $this->userService = $userService;
     }
 
@@ -25,7 +27,7 @@ class AccountService
             throw new UserException(UserException::NOT_FOUND, 404);
         }
 
-        $accountType = AccountTypeService::find(['tipo_conta' => $data['tipo_conta']]);
+        $accountType = $this->accountTypeService->find(['tipo_conta' => $data['tipo_conta']]);
         if(!$accountType) {
             throw new AccountTypeException(AccountTypeException::INVALID_ACCOUNT_TYPE, 422);
         }
@@ -52,12 +54,12 @@ class AccountService
             throw new UserException(UserException::NOT_FOUND, 404);
         }
 
-        $accountType = AccountTypeService::find(['tipo_conta' => $data['tipo_conta']]);
+        $accountType = $this->accountTypeService->find(['tipo_conta' => $data['tipo_conta']]);
         if(!$accountType) {
             throw new AccountTypeException(AccountTypeException::INVALID_ACCOUNT_TYPE, 422);
         }
 
-        $account = AccountService::find([
+        $account = $this->find([
             'id_usuario' => $user->id,
             'id_tipo_conta' => $accountType->id
         ]);
@@ -77,12 +79,12 @@ class AccountService
             throw new UserException(UserException::NOT_FOUND, 404);
         }
 
-        $accountType = AccountTypeService::find(['tipo_conta' => $data['tipo_conta']]);
+        $accountType = $this->accountTypeService->find(['tipo_conta' => $data['tipo_conta']]);
         if(!$accountType) {
             throw new AccountTypeException(AccountTypeException::INVALID_ACCOUNT_TYPE, 422);
         }
 
-        $account = AccountService::find([
+        $account = $this->find([
             'id_usuario' => $user->id,
             'id_tipo_conta' => $accountType->id
         ]);
