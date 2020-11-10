@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function get($id)
     {
-        $user = UserService::getById($id);
+        $user = $this->userService->getById($id);
         return response()->json($user->toArray());
     }
 
@@ -20,19 +27,19 @@ class UserController extends Controller
             'nome' => $request->input('nome'),
             'cpf' => $request->input('cpf')
         ];
-        $user = UserService::find($params);
+        $user = $this->userService->find($params);
         return response()->json($user->toArray());
     }
 
     public function save(SaveRequest $request, $id = 0)
     {
-        $user = UserService::save($request->getRequest(), $id);
+        $user = $this->userService->save($request->getRequest(), $id);
         return response()->json($user->toArray(), $id > 0 ? 200 : 201);
     }
 
     public function delete($id)
     {
-        UserService::delete($id);
+        $this->userService->delete($id);
         return response(null, 204);
     }
 }

@@ -7,7 +7,7 @@ use App\Models\User;
 
 class UserService
 {
-    public static function getById($id) {
+    public function getById($id) {
         $user = User::find($id);
         if(!$user) {
             throw new UserException(UserException::NOT_FOUND, 404);
@@ -15,7 +15,7 @@ class UserService
         return $user;
     }
 
-    public static function find($params) {
+    public function find($params) {
         $params = [
             'nome' => $params['nome'] ?? '',
             'cpf' => $params['cpf'] ?? ''
@@ -30,8 +30,8 @@ class UserService
         return $user;
     }
 
-    public static function save($payload, $id = 0) {
-        $user = $id > 0 ? self::getById($id) : new User();
+    public function save($payload, $id = 0) {
+        $user = $id > 0 ? $this->getById($id) : new User();
         try {
             $user->id = $id;
             $user->nome = $payload['nome'];
@@ -47,8 +47,8 @@ class UserService
         return $user;
     }
 
-    public static function delete($id) {
-        $user = self::getById($id);
+    public function delete($id) {
+        $user = $this->getById($id);
         try {
             $result = $user->delete();
             if(!$result) {

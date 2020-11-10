@@ -6,6 +6,14 @@ use App\Services\UserService;
 
 class UserTest extends TestCase
 {
+    private $userService;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->userService = $this->app->make(UserService::class);
+    }
+
     public function testCreateUser()
     {
         $this->post('/users', [
@@ -18,7 +26,7 @@ class UserTest extends TestCase
 
     public function testGetUser()
     {
-        $user = UserService::find(['cpf' => '12345678910']);
+        $user = $this->userService->find(['cpf' => '12345678910']);
         $this->get('/users/' . $user->id)
                 ->seeStatusCode(200)
                 ->seeJson([
@@ -31,7 +39,7 @@ class UserTest extends TestCase
 
     public function testFindUser()
     {
-        $user = UserService::find(['cpf' => '12345678910']);
+        $user = $this->userService->find(['cpf' => '12345678910']);
         $this->get('/users?cpf=12345678910')
                 ->seeStatusCode(200)
                 ->seeJson([
@@ -44,7 +52,7 @@ class UserTest extends TestCase
 
     public function testUpdateUser()
     {
-        $user = UserService::find(['cpf' => '12345678910']);
+        $user = $this->userService->find(['cpf' => '12345678910']);
         $this->put('/users/' . $user->id, [
                 'nome' => 'João Silva',
                 'cpf' => '12345678911',
@@ -61,7 +69,7 @@ class UserTest extends TestCase
 
     public function testDeleteUser()
     {
-        $user = UserService::find(['cpf' => '12345678911']);
+        $user = $this->userService->find(['cpf' => '12345678911']);
         $this->delete('/users/' . $user->id)
                 ->seeStatusCode(204);
     }
