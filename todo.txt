@@ -1,3 +1,2 @@
-- Services no padrão service container
-- Documentação dos endpoints no README
+- Documentação dos endpoints
 - Testes locais no SQLite (ou dockerizar projeto)
