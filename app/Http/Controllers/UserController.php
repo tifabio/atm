@@ -30,9 +30,22 @@ class UserController extends Controller
      *      path="/users",
      *      tags={"users"},
      *      description="Find by criteria and retrieve data from existent user",
+     *      @OA\Parameter(
+     *          name="nome",
+     *          in="query",
+     *          required=false,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          name="cpf",
+     *          in="query",
+     *          required=false,
+     *          @OA\Schema(type="string")
+     *      ),
      *      @OA\Response(
      *          response="200", 
      *          description="User Model",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
      *      )
      * )
      */

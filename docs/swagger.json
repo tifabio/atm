@@ -17,11 +17,59 @@
                 ],
                 "description": "Find by criteria and retrieve data from existent user",
                 "operationId": "App\\Http\\Controllers\\UserController::find",
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cpf",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "User Model"
+                        "description": "User Model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
                     }
                 }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "title": "User Model",
+                "description": "User Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "datanascimento": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
             }
         }
     }
