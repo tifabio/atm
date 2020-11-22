@@ -6,7 +6,8 @@
     "type": "project",
     "require": {
         "php": "^7.2.5",
-        "laravel/lumen-framework": "^7.0"
+        "laravel/lumen-framework": "^7.0",
+        "zircote/swagger-php": "^3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",
@@ -37,6 +38,9 @@
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "create-swagger": [
+            "openapi app -o docs/swagger.json -b config/swagger.php"
         ]
     }
 }

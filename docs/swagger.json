@@ -1,0 +1,28 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ATM Simulator",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://atm-linx.herokuapp.com"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Find by criteria and retrieve data from existent user",
+                "operationId": "App\\Http\\Controllers\\UserController::find",
+                "responses": {
+                    "200": {
+                        "description": "User Model"
+                    }
+                }
+            }
+        }
+    }
+}

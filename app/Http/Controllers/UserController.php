@@ -1,4 +1,8 @@
 <?php
+/**
+ * @OA\Info(title=APP_NAME, version=APP_VERSION)
+ * @OA\Server(url=APP_HOST)
+ */
 
 namespace App\Http\Controllers;
 
@@ -21,6 +25,17 @@ class UserController extends Controller
         return response()->json($user->toArray());
     }
 
+    /**
+     * @OA\Get(
+     *      path="/users",
+     *      tags={"users"},
+     *      description="Find by criteria and retrieve data from existent user",
+     *      @OA\Response(
+     *          response="200", 
+     *          description="User Model",
+     *      )
+     * )
+     */
     public function find(Request $request)
     {
         $params = [
