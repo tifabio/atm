@@ -19,10 +19,8 @@ class ATMTest extends TestCase
     }
 
     public function testTwenty() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(20);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(20);
         $this->assertEquals($money, [
             100 => 0,
             50  => 0,
@@ -40,10 +38,8 @@ class ATMTest extends TestCase
     }
 
     public function testFourty() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(40);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(40);
         $this->assertEquals($money, [
             100 => 0,
             50  => 0,
@@ -52,10 +48,8 @@ class ATMTest extends TestCase
     }
 
     public function testFifty() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(50);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(50);
         $this->assertEquals($money, [
             100 => 0,
             50  => 1,
@@ -64,10 +58,8 @@ class ATMTest extends TestCase
     }
 
     public function testSixty() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(60);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(60);
         $this->assertEquals($money, [
             100 => 0,
             50  => 0,
@@ -76,10 +68,8 @@ class ATMTest extends TestCase
     }
 
     public function testSeventy() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(70);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(70);
         $this->assertEquals($money, [
             100 => 0,
             50  => 1,
@@ -88,10 +78,8 @@ class ATMTest extends TestCase
     }
 
     public function testEighty() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(80);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(80);
         $this->assertEquals($money, [
             100 => 0,
             50  => 0,
@@ -100,10 +88,8 @@ class ATMTest extends TestCase
     }
 
     public function testNinety() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(90);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(90);
         $this->assertEquals($money, [
             100 => 0,
             50  => 1,
@@ -112,10 +98,8 @@ class ATMTest extends TestCase
     }
 
     public function testOneHundredAndTen() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(110);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(110);
         $this->assertEquals($money, [
             100 => 0,
             50  => 1,
@@ -124,10 +108,8 @@ class ATMTest extends TestCase
     }
 
     public function testOneHundredAndTwenty() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(120);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(120);
         $this->assertEquals($money, [
             100 => 1,
             50  => 0,
@@ -137,10 +119,8 @@ class ATMTest extends TestCase
 
 
     public function testOneHundredAndThirty() {
-        try {
-            $atm = new ATMService($this->balance);
-            $money = $atm->withdrawn(130);
-        } catch (\Exception $e) {}
+        $atm = new ATMService($this->balance);
+        $money = $atm->withdrawn(130);
         $this->assertEquals($money, [
             100 => 0,
             50  => 1,
