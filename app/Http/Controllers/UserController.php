@@ -169,7 +169,8 @@ class UserController extends Controller
      *          @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(
-     *          response="204"
+     *          response="204",
+     *          description="No content"
      *      )
      * )
      */

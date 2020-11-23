@@ -112,15 +112,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "User Model",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
+                    "204": {
+                        "description": "No content"
                     }
                 }
             }
