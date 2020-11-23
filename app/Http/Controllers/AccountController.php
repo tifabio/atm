@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Requests\Account\SaveRequest;
 use App\Http\Controllers\Requests\Account\BalanceRequest;
 use App\Services\AccountService;
-use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {

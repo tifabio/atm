@@ -1,9 +1,5 @@
 <?php
 
-use \Illuminate\Http\Request;
-use \App\Http\Controllers\UserController;
-use \App\Http\Controllers\AccountController;
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });

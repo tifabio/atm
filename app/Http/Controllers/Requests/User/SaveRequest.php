@@ -11,7 +11,7 @@ class SaveRequest extends Controller
    {
       $this->validate($request, [
          'nome' => 'required|string|min:3',
-         'cpf' => 'required|string|min:11',
+         'cpf' => 'required|string|min:11|max:11',
          'datanascimento' => 'required|date',
       ]);
 

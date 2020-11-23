@@ -10,7 +10,7 @@ class BalanceRequest extends Controller
    public function __construct(Request $request)
    {
       $this->validate($request, [
-         'cpf' => 'required|string|min:11',
+         'cpf' => 'required|string|min:11|max:11',
          'tipo_conta' => 'required|string',
          'valor' => 'required|integer|gt:0',
      ]);
