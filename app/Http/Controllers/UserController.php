@@ -78,7 +78,7 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\POST(
+     * @OA\Post(
      *      path="/users",
      *      tags={"users"},
      *      description="Create new user",
@@ -105,14 +105,14 @@ class UserController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response="200", 
+     *          response="201", 
      *          description="User Model",
      *          @OA\JsonContent(ref="#/components/schemas/User")
      *      )
      * )
      */
     /**
-     * @OA\PUT(
+     * @OA\Put(
      *      path="/users/{id}",
      *      tags={"users"},
      *      description="Update data from existent user",
@@ -120,7 +120,7 @@ class UserController extends Controller
      *          name="id",
      *          in="path",
      *          required=true,
-     *          @OA\Schema(type="string")
+     *          @OA\Schema(type="integer")
      *      ),
      *      @OA\RequestBody(
      *          required=true,
