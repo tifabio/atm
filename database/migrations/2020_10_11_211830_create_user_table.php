@@ -18,8 +18,7 @@ class CreateUserTable extends Migration
             $table->string('nome');
             $table->string('cpf')->unique();
             $table->date('datanascimento');
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
+            $table->timestamps();
         });
     }
 
