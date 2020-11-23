@@ -15,6 +15,40 @@ class AccountController extends Controller
         $this->accountService = $accountService;
     }
 
+    /**
+     * @OA\Post(
+     *      path="/accounts",
+     *      tags={"accounts"},
+     *      description="Create new account",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  required={"cpf","tipo_conta","saldo"},
+     *                  @OA\Property(
+     *                      property="cpf",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="tipo_conta",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="saldo",
+     *                      type="integer"
+     *                  ),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="201", 
+     *          description="Account Model",
+     *          @OA\JsonContent(ref="#/components/schemas/Account")
+     *      )
+     * )
+     */
     public function save(SaveRequest $request)
     {
         $account = $this->accountService->save($request->getRequest());        

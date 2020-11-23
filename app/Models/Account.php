@@ -4,6 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *      description="Account Model",
+ *      title="Account Model",
+ *      type="object",
+ *      @OA\Property(property="id", type="integer"),
+ *      @OA\Property(property="id_usuario", type="integer"),
+ *      @OA\Property(property="id_tipo_conta", type="integer"),
+ *      @OA\Property(property="saldo", type="string")
+ * )
+ */
 class Account extends Model
 {
     protected $table = 'conta';

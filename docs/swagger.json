@@ -10,6 +10,53 @@
         }
     ],
     "paths": {
+        "/accounts": {
+            "post": {
+                "tags": [
+                    "accounts"
+                ],
+                "description": "Create new account",
+                "operationId": "App\\Http\\Controllers\\AccountController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "cpf",
+                                    "tipo_conta",
+                                    "saldo"
+                                ],
+                                "properties": {
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "tipo_conta": {
+                                        "type": "string"
+                                    },
+                                    "saldo": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Account Model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/{id}": {
             "get": {
                 "tags": [
@@ -204,6 +251,25 @@
     },
     "components": {
         "schemas": {
+            "Account": {
+                "title": "Account Model",
+                "description": "Account Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "id_usuario": {
+                        "type": "integer"
+                    },
+                    "id_tipo_conta": {
+                        "type": "integer"
+                    },
+                    "saldo": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "title": "User Model",
                 "description": "User Model",
