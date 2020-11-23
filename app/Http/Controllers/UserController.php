@@ -169,9 +169,7 @@ class UserController extends Controller
      *          @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(
-     *          response="200", 
-     *          description="User Model",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          response="204"
      *      )
      * )
      */
