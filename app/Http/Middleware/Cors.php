@@ -15,12 +15,12 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
+        if ($request->isMethod('OPTIONS')) {
+            app()->options($request->path(), function() { return response('', 200); });
+        }
+
         return $next($request)
             ->header('Access-Control-Allow-Origin', env('APP_SWAGGER'))
-            ->header('Access-Control-Allow-Headers', '*')
-            ->header('Access-Control-Allow-Methods', '*')
-            ->header('Access-Control-Request-Origin', env('APP_SWAGGER'))
-            ->header('Access-Control-Request-Headers', '*')
-            ->header('Access-Control-Request-Methods', '*');
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     }
 }
