@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "https://atm-linx.herokuapp.com"
+            "url": "http://atm-linx.herokuapp.com"
         }
     ],
     "paths": {
