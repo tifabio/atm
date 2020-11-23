@@ -82,23 +82,27 @@ class UserController extends Controller
      *      path="/users",
      *      tags={"users"},
      *      description="Create new user",
-     *      @OA\Parameter(
-     *          name="nome",
-     *          in="query",
+     *      @OA\RequestBody(
      *          required=true,
-     *          @OA\Schema(type="string")
-     *      ),
-     *      @OA\Parameter(
-     *          name="cpf",
-     *          in="query",
-     *          required=true,
-     *          @OA\Schema(type="string")
-     *      ),
-     *      @OA\Parameter(
-     *          name="datanascimento",
-     *          in="query",
-     *          required=true,
-     *          @OA\Schema(type="string")
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  required={"nome","cpf","datanascimento"},
+     *                  @OA\Property(
+     *                      property="nome",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="cpf",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="datanascimento",
+     *                      type="string"
+     *                  ),
+     *              )
+     *          )
      *      ),
      *      @OA\Response(
      *          response="200", 
@@ -113,28 +117,32 @@ class UserController extends Controller
      *      tags={"users"},
      *      description="Update data from existent user",
      *      @OA\Parameter(
-     *          name="nome",
-     *          in="query",
-     *          required=true,
-     *          @OA\Schema(type="string")
-     *      ),
-     *      @OA\Parameter(
      *          name="id",
      *          in="path",
      *          required=true,
      *          @OA\Schema(type="string")
      *      ),
-     *      @OA\Parameter(
-     *          name="cpf",
-     *          in="query",
+     *      @OA\RequestBody(
      *          required=true,
-     *          @OA\Schema(type="string")
-     *      ),
-     *      @OA\Parameter(
-     *          name="datanascimento",
-     *          in="query",
-     *          required=true,
-     *          @OA\Schema(type="string")
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  required={"nome","cpf","datanascimento"},
+     *                  @OA\Property(
+     *                      property="nome",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="cpf",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="datanascimento",
+     *                      type="string"
+     *                  ),
+     *              )
+     *          )
      *      ),
      *      @OA\Response(
      *          response="200", 
