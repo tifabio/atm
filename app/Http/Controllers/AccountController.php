@@ -33,7 +33,8 @@ class AccountController extends Controller
      *                  ),
      *                  @OA\Property(
      *                      property="tipo_conta",
-     *                      type="string"
+     *                      type="string",
+     *                      enum={"CONTA_CORRENTE", "CONTA_POUPANCA"}
      *                  ),
      *                  @OA\Property(
      *                      property="saldo",
@@ -55,6 +56,41 @@ class AccountController extends Controller
         return response()->json($account->toArray(), 201);
     }
 
+    /**
+     * @OA\Put(
+     *      path="/accounts/deposit",
+     *      tags={"accounts"},
+     *      description="Deposit money to an existing account",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  required={"cpf","tipo_conta","valor"},
+     *                  @OA\Property(
+     *                      property="cpf",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="tipo_conta",
+     *                      type="string",
+     *                      enum={"CONTA_CORRENTE", "CONTA_POUPANCA"}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="valor",
+     *                      type="integer"
+     *                  ),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="Account Model",
+     *          @OA\JsonContent(ref="#/components/schemas/Account")
+     *      )
+     * )
+     */
     public function deposit(BalanceRequest $request) 
     {
         $account = $this->accountService->deposit($request->getRequest());        

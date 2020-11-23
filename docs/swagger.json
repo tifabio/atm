@@ -11,6 +11,55 @@
     ],
     "paths": {
         "/accounts": {
+            "put": {
+                "tags": [
+                    "accounts"
+                ],
+                "description": "Deposit money to an existing account",
+                "operationId": "App\\Http\\Controllers\\AccountController::deposit",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "cpf",
+                                    "tipo_conta",
+                                    "valor"
+                                ],
+                                "properties": {
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "tipo_conta": {
+                                        "type": "string",
+                                        "enum": [
+                                            "CONTA_CORRENTE",
+                                            "CONTA_POUPANCA"
+                                        ]
+                                    },
+                                    "valor": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Account Model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "accounts"
@@ -32,7 +81,11 @@
                                         "type": "string"
                                     },
                                     "tipo_conta": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "enum": [
+                                            "CONTA_CORRENTE",
+                                            "CONTA_POUPANCA"
+                                        ]
                                     },
                                     "saldo": {
                                         "type": "integer"
