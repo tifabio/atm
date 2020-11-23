@@ -1,2 +1,0 @@
-- Documentação dos endpoints
-- Testes locais no SQLite (ou dockerizar projeto)

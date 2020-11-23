@@ -11,6 +11,57 @@
     ],
     "paths": {
         "/accounts": {
+            "post": {
+                "tags": [
+                    "accounts"
+                ],
+                "description": "Create new account",
+                "operationId": "App\\Http\\Controllers\\AccountController::save",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "cpf",
+                                    "tipo_conta",
+                                    "saldo"
+                                ],
+                                "properties": {
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "tipo_conta": {
+                                        "type": "string",
+                                        "enum": [
+                                            "CONTA_CORRENTE",
+                                            "CONTA_POUPANCA"
+                                        ]
+                                    },
+                                    "saldo": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Account Model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/deposit": {
             "put": {
                 "tags": [
                     "accounts"
@@ -59,13 +110,15 @@
                         }
                     }
                 }
-            },
-            "post": {
+            }
+        },
+        "/accounts/withdrawn": {
+            "put": {
                 "tags": [
                     "accounts"
                 ],
-                "description": "Create new account",
-                "operationId": "App\\Http\\Controllers\\AccountController::save",
+                "description": "Withdrawn money from an existing account",
+                "operationId": "App\\Http\\Controllers\\AccountController::withdrawn",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -74,7 +127,7 @@
                                 "required": [
                                     "cpf",
                                     "tipo_conta",
-                                    "saldo"
+                                    "valor"
                                 ],
                                 "properties": {
                                     "cpf": {
@@ -87,7 +140,7 @@
                                             "CONTA_POUPANCA"
                                         ]
                                     },
-                                    "saldo": {
+                                    "valor": {
                                         "type": "integer"
                                     }
                                 },
@@ -97,12 +150,23 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Account Model",
+                    "200": {
+                        "description": "Bank Notes",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Account"
+                                    "properties": {
+                                        "100": {
+                                            "type": "integer"
+                                        },
+                                        "50": {
+                                            "type": "integer"
+                                        },
+                                        "20": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }

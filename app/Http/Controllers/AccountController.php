@@ -97,6 +97,49 @@ class AccountController extends Controller
         return response()->json($account->toArray());
     }
 
+    /**
+     * @OA\Put(
+     *      path="/accounts/withdrawn",
+     *      tags={"accounts"},
+     *      description="Withdrawn money from an existing account",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  required={"cpf","tipo_conta","valor"},
+     *                  @OA\Property(
+     *                      property="cpf",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="tipo_conta",
+     *                      type="string",
+     *                      enum={"CONTA_CORRENTE", "CONTA_POUPANCA"}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="valor",
+     *                      type="integer"
+     *                  ),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="Bank Notes",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  @OA\Property(property="100", type="integer"),
+     *                  @OA\Property(property="50", type="integer"),
+     *                  @OA\Property(property="20", type="integer")
+     *              )
+     *         )
+     *      )
+     * )
+     */
     public function withdrawn(BalanceRequest $request) 
     {
         $money = $this->accountService->withdrawn($request->getRequest());        
