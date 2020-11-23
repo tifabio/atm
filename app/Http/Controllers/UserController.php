@@ -107,6 +107,42 @@ class UserController extends Controller
      *      )
      * )
      */
+    /**
+     * @OA\PUT(
+     *      path="/users/{id}",
+     *      tags={"users"},
+     *      description="Update data from existent user",
+     *      @OA\Parameter(
+     *          name="nome",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          name="cpf",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          name="datanascimento",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="User Model",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *      )
+     * )
+     */
     public function save(SaveRequest $request, $id = 0)
     {
         $user = $this->userService->save($request->getRequest(), $id);
