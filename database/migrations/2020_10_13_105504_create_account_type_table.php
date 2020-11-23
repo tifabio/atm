@@ -17,13 +17,6 @@ class CreateAccountTypeTable extends Migration
             $table->increments('id');
             $table->string('tipo_conta');
         });
-
-        DB::table('tipo_conta')->insert(
-            [
-                ['tipo_conta' => 'CONTA_POUPANCA'],
-                ['tipo_conta' => 'CONTA_CORRENTE'],
-            ]
-        );
     }
 
     /**
