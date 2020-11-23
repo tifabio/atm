@@ -18,6 +18,9 @@ class Cors
         return $next($request)
             ->header('Access-Control-Allow-Origin', env('APP_SWAGGER'))
             ->header('Access-Control-Allow-Headers', '*')
-            ->header('Access-Control-Allow-Methods', '*');
+            ->header('Access-Control-Allow-Methods', '*')
+            ->header('Access-Control-Request-Origin', env('APP_SWAGGER'))
+            ->header('Access-Control-Request-Headers', '*')
+            ->header('Access-Control-Request-Methods', '*');
     }
 }
