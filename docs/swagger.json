@@ -23,7 +23,7 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -52,7 +52,7 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -166,7 +166,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "User Model",
                         "content": {
                             "application/json": {

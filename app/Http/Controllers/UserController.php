@@ -28,7 +28,7 @@ class UserController extends Controller
      *          name="id",
      *          in="path",
      *          required=true,
-     *          @OA\Schema(type="string")
+     *          @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(
      *          response="200", 
