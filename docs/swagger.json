@@ -78,6 +78,51 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Create new user",
+                "operationId": "App\\Http\\Controllers\\UserController::save",
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cpf",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "datanascimento",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
