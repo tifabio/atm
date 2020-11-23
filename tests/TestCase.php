@@ -4,6 +4,8 @@ use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    protected $baseResource;
+
     /**
      * Creates the application.
      *

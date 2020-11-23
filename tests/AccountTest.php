@@ -1,7 +1,5 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 use App\Services\AccountService;
 use App\Services\AccountTypeService;
 use App\Services\UserService;
@@ -12,6 +10,7 @@ class AccountTest extends TestCase
     private $accountService;
     private $accountTypeService;
     private $userService;
+    private $baseResourceUser;
 
     public function setUp(): void
     {
@@ -19,18 +18,20 @@ class AccountTest extends TestCase
         $this->accountService = $this->app->make(AccountService::class);
         $this->accountTypeService = $this->app->make(AccountTypeService::class);
         $this->userService = $this->app->make(UserService::class);
+        $this->baseResource = '/accounts';
+        $this->baseResourceUser = '/users';
     }
 
     public function testCreateAccount()
     {
-        $this->post('/users', [
+        $this->post($this->baseResourceUser, [
                 'nome' => 'José Silva',
                 'cpf' => '12345678920',
                 'datanascimento' => '1999-01-01'
             ])
             ->seeStatusCode(201);
 
-        $this->post('/accounts', [
+        $this->post($this->baseResource, [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'saldo' => '200'
@@ -40,7 +41,7 @@ class AccountTest extends TestCase
 
     public function testCreateAccountInvalidAccountType()
     {
-        $this->post('/accounts', [
+        $this->post($this->baseResource, [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_PAGAMENTO',
                 'saldo' => '200'
@@ -59,7 +60,7 @@ class AccountTest extends TestCase
             'id_tipo_conta' => $accountType->id
         ]);
 
-        $this->put('/accounts/deposit', [
+        $this->put($this->baseResource . '/deposit', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 50
@@ -75,7 +76,7 @@ class AccountTest extends TestCase
 
     public function testAccountDepositDecimalValue()
     {
-        $this->put('/accounts/deposit', [
+        $this->put($this->baseResource . '/deposit', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 40.39
@@ -88,7 +89,7 @@ class AccountTest extends TestCase
 
     public function testAccountWithdrawn()
     {
-        $this->put('/accounts/withdrawn', [
+        $this->put($this->baseResource . '/withdrawn', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 130
@@ -103,7 +104,7 @@ class AccountTest extends TestCase
 
     public function testAccountWithdrawnWrongRequiredAmount()
     {
-        $this->put('/accounts/withdrawn', [
+        $this->put($this->baseResource . '/withdrawn', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 15
@@ -117,7 +118,7 @@ class AccountTest extends TestCase
 
     public function testAccountWithdrawnInsufficientFunds()
     {
-        $this->put('/accounts/withdrawn', [
+        $this->put($this->baseResource . '/withdrawn', [
                 'cpf' => '12345678920',
                 'tipo_conta' => 'CONTA_POUPANCA',
                 'valor' => 350
