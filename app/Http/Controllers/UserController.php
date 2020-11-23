@@ -19,6 +19,24 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * @OA\Get(
+     *      path="/users/{id}",
+     *      tags={"users"},
+     *      description="Retrieve data from existent user",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="User Model",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *      )
+     * )
+     */
     public function get($id)
     {
         $user = $this->userService->getById($id);

@@ -10,6 +10,37 @@
         }
     ],
     "paths": {
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Retrieve data from existent user",
+                "operationId": "App\\Http\\Controllers\\UserController::get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
