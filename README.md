@@ -1,4 +1,6 @@
-ATM Simulator
+[![CodeFactor](https://www.codefactor.io/repository/github/tifabio/atm/badge)](https://www.codefactor.io/repository/github/tifabio/atm)
+
+# ATM Simulator
 
 Steps to install:
 
@@ -19,3 +21,6 @@ Steps to run tests:
 ```sh
 $ ./vendor/bin/phpunit tests
 ```
+
+API Documentation:
+https://tifabio.github.io/atm
