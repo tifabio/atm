@@ -94,11 +94,6 @@ $app->middleware([
 |
 */
 
-$app->register(
-    App\Providers\AccountServiceProvider::class,
-    App\Providers\AccountTypeServiceProvider::class,
-    App\Providers\UserServiceProvider::class
-);
 //$app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
