@@ -94,6 +94,35 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Delete existent user",
+                "operationId": "App\\Http\\Controllers\\UserController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/users": {

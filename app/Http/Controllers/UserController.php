@@ -157,6 +157,24 @@ class UserController extends Controller
         return response()->json($user->toArray(), $id > 0 ? 200 : 201);
     }
 
+    /**
+     * @OA\Delete(
+     *      path="/users/{id}",
+     *      tags={"users"},
+     *      description="Delete existent user",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="User Model",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *      )
+     * )
+     */
     public function delete($id)
     {
         $this->userService->delete($id);
