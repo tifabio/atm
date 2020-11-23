@@ -1,7 +1,5 @@
 <?php
 
-use \Illuminate\Http\Request;
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
@@ -26,6 +24,4 @@ $router->put('/accounts/deposit', '\App\Http\Controllers\AccountController@depos
 
 $router->put('/accounts/withdrawn', '\App\Http\Controllers\AccountController@withdrawn');
 
-$router->options('/{any:.*}', function (Request $req) {
-    return;
-});
+$router->options('/{any:.*}', function () { return; });
