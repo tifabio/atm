@@ -5,21 +5,21 @@
 ### Steps to install:
 
 ```sh
-$ docker run --rm --name atm -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=atm -d mysql:8.0
 $ cp .env.local .env
-$ composer install
-$ php artisan migrate
+$ docker-compose up -d --build
+$ docker-compose exec app composer install
+$ docker-compose exec app php artisan migrate --seed
 ```
 
 ### Steps to run:
 ```sh
-$ php -S 127.0.0.1:8080 -t public
+$ docker-compose up -d
 ```
 
 ### Steps to run tests:
 
 ```sh
-$ ./vendor/bin/phpunit tests
+$ docker-compose exec app vendor/bin/phpunit
 ```
 
 ### API Documentation:
