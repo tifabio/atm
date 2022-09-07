@@ -37,9 +37,9 @@ class UserController extends Controller
      *      )
      * )
      */
-    public function get($id)
+    public function get($userId)
     {
-        $user = $this->userService->getById($id);
+        $user = $this->userService->getById($userId);
         return response()->json($user->toArray());
     }
 
@@ -151,10 +151,10 @@ class UserController extends Controller
      *      )
      * )
      */
-    public function save(SaveRequest $request, $id = 0)
+    public function save(SaveRequest $request, $userId = 0)
     {
-        $user = $this->userService->save($request->getRequest(), $id);
-        return response()->json($user->toArray(), $id > 0 ? 200 : 201);
+        $user = $this->userService->save($request->getRequest(), $userId);
+        return response()->json($user->toArray(), $userId > 0 ? 200 : 201);
     }
 
     /**
@@ -174,9 +174,9 @@ class UserController extends Controller
      *      )
      * )
      */
-    public function delete($id)
+    public function delete($userId)
     {
-        $this->userService->delete($id);
+        $this->userService->delete($userId);
         return response(null, 204);
     }
 }

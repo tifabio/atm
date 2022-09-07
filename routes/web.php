@@ -8,11 +8,11 @@ $router->get('foo', function () use ($router) {
     return 'Hello World';
 });
 
-$router->get('/users/{id}', '\App\Http\Controllers\UserController@get');
+$router->get('/users/{userId}', '\App\Http\Controllers\UserController@get');
 
-$router->delete('/users/{id}', '\App\Http\Controllers\UserController@delete');
+$router->delete('/users/{userId}', '\App\Http\Controllers\UserController@delete');
 
-$router->put('/users/{id}', '\App\Http\Controllers\UserController@save');
+$router->put('/users/{userId}', '\App\Http\Controllers\UserController@save');
 
 $router->post('/users', '\App\Http\Controllers\UserController@save');
 

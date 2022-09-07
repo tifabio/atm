@@ -54,8 +54,8 @@ class Handler extends ExceptionHandler
                 'message' => $exception->getMessage(),
                 'status_code' => $exception->getCode()
             ], $exception->getCode());
-        } else {
-            return parent::render($request, $exception);
-        }
+        } 
+        
+        return parent::render($request, $exception);
     }
 }
